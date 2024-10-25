@@ -19,7 +19,7 @@ app.get('/data/:controller/:channel/:einheit', (req, res) => {
         res.send({"antwort": "die einheit muss : u , i , c , p , q , s , f"})
     }
     
-    console.log(ModifiedEinHeit)
+
     connection.query(`SELECT unit_id, servertime, ch${channel}_${ModifiedEinHeit} FROM view1s_power WHERE unit_id = ${controller} ORDER BY servertime;`,(ERROR , RESULTS)=>{
 
         res.send(RESULTS);
@@ -30,5 +30,5 @@ app.get('/data/:controller/:channel/:einheit', (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+ 
 })
