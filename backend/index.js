@@ -30,5 +30,5 @@ app.get('/data/:controller/:channel/:einheit', (req, res) => {
 
 
 app.listen(port || process.env.PORT , () => {
- 
+    console.log(`Server is running on port ${port}`);
 })
