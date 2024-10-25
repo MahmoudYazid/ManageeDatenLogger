@@ -29,6 +29,6 @@ app.get('/data/:controller/:channel/:einheit', (req, res) => {
 })
 
 
-app.listen(port, () => {
+app.listen(port || process.env.PORT , () => {
  
 })
