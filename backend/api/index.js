@@ -1,5 +1,6 @@
 const express = require('express');
-const connection = require('./Logic/dbContext');
+const connection = require('../Logic/dbContext');
+
 const app = express()
 const port = 3000
 
