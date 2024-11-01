@@ -1,0 +1,1 @@
+export const GeneralApi ="http://localhost:3000/"
