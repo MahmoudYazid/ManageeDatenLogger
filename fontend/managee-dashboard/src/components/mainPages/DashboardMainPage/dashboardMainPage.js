@@ -2,6 +2,7 @@ import React from 'react'
 import ChannelundEinheitAltData from './ChannelundEinheitAltData'
 import ChannelundEinheitLiveDaten from './ChannelundEinheitLiveDaten'
 import ChannelundEinheitDateSuchen from './ChannelundEinheitDateSuchen'
+import KomponiertGraph from './komponiertGraph'
 
 export default function DashboardMainPage() {
   return (
@@ -12,6 +13,10 @@ export default function DashboardMainPage() {
   </div>
   <div className='w-full flex flex-row'>
     <ChannelundEinheitDateSuchen />
+  </div>
+  <div className='w-full flex flex-row'>
+    <KomponiertGraph />
+  
   </div>
 </div>
 
