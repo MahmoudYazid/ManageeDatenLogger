@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
-import { AgGauge } from "ag-charts-react";
+import { AgCharts } from "ag-charts-react";
+
 import "ag-charts-enterprise";
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Space, Menu } from 'antd';
@@ -76,29 +77,60 @@ export default function ChannelundEinheitLiveDaten() {
       const channelMenu = <Menu onClick={e=>setchannelState(e.key)}  items={channelMenuItems}  style={{ maxHeight: '5rem', overflowY: 'auto' }}/>; // Create Menu from channelMenuItems
       
       
-  const updateChartOptions = (data) => {
-    if (data.length > 0) {
-      const yKey = Object.keys(data[0]).find(key => key.includes('ch'));
-      const yValue = data[0][yKey]; 
-      console.log(yValue)
-      setOptions({
-        type: "radial-gauge",
-        
-        value: yValue,
-        scale: {
-          min: 0  ,
-          max: yValue > 0 && yValue < 1 ? 1 : yValue < 0  ? -10 : yValue > 1 && yValue < 100  ? 100 : 300 ,
-       
-        },
-        title: {
-          text: 'Live Data',
-          fontSize: 18,
-          fontWeight: 'bold',
-          color: '#333', // Customize as needed
-        },
-      });
-    }
-  };
+      const updateChartOptions = (data) => {
+        if (data.length > 0) {
+          const yKey = Object.keys(data[0]).find(key => key.includes('ch')); // Dynamically find yKey
+    
+          if (!yKey) {
+            console.error('No valid yKey found in data');
+            return;
+          }
+    
+     
+          setOptions({
+            ...options,
+            title: {
+              text: ``,
+            },
+            data: data,
+            series: [
+              {
+                type: "line",
+                xKey: `servertime`, // Using x values from 1 to 100
+                yKey: yKey, // Dynamic y key
+                fill: '#4FD1C5',
+                stroke: '#4FD1C5',
+              },
+            ],
+            axes: [
+              {
+                type: 'category', // X-axis type (categorical for 1 to 100)
+                position: 'bottom',
+                title: {
+                  text: ``,
+                  style: {
+                    fontSize: '1.5rem', // Default font size
+                    '@media (max-width: 768px)': {
+                      fontSize: '1rem', // Font size for mobile or smaller screens
+                    },
+                  }
+                },
+                label: {
+                  enabled: false, // Disable x-axis labels (this hides them)
+                },
+              },
+              {
+                type: 'number', // Y-axis type (numeric)
+                position: 'left',
+                title: {
+                  text: '',
+                },
+              },
+            ],
+          });
+        }
+      };
+    
       const handleFetchData = async () => {
         try {
           const data = await MakeRequestForManangee(controllerState, channelState, einheitState,"j");
@@ -125,7 +157,7 @@ export default function ChannelundEinheitLiveDaten() {
   return (
     <div className='bg-white lg:w-[48%] lg:h-[30rem] h-[40rem] w-full m-3 rounded-[1rem] grid grid-rows-[4fr_1fr] md:border-white-300 shadow-md '>
     <div className='w-full h-full bg-black'>
-      <AgGauge  className='w-full h-full' options={options} />
+    <AgCharts className='w-full h-full' options={options} />
     </div>
 
     <div className='p-[1rem] p-1 w-full h-full bg-transparent flex flex-row flex-wrap gap-1  items-center justify-center '>

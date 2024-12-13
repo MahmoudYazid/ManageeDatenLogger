@@ -94,24 +94,7 @@ export default function KomponiertGraph() {
                         },
                     }}
                 >
-                   {
 
-
-                        Daten.map((e, index) => (
-                        
-
-
-                        
-                            <VictoryLabel
-                                key={index} // Unique key for each line
-                                style={{
-                                    data: { stroke: randomColor() }, // Random color for each line
-                                }}
-                                data={e} // Ensure e is an array of data points for each line
-                            />
-                        
-                        ))
-                   }
                        
                        
                    {
